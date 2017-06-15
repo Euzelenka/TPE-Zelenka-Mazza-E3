@@ -1,5 +1,5 @@
 
-public enum TipoNodo {
+public enum TipoDato {
 	TipoUsuario,
 	TipoGusto
 }
