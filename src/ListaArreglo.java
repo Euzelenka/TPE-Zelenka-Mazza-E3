@@ -2,16 +2,19 @@ public class ListaArreglo {
 	
 	//CLASE PRIVADA DE LISTA ARREGLO
 	private class Vertice {
+		int clave;
 		String dato;
 		Lista adyacentes;
 		
-		private Vertice(String dato) {
+		private Vertice(String dato, int clave) {
 			this.dato = dato;
 			this.adyacentes = new Lista();
+			this.clave = clave;
 		}
 		
 		private void addAdyacente(String dato) {
-			this.adyacentes.agregar(dato);
+			if(!adyacentes.existeElem(dato))
+				this.adyacentes.agregar(dato);
 		}
 		
 		//DADA UNA LISTA RETORNA LA CANTIDAD DE VERTICES QUE TIENEN EN COMUN
@@ -26,6 +29,10 @@ public class ListaArreglo {
 				cursor = cursor.getNext();
 			}
 			return cant;
+		}
+		
+		private int getClaveVert() {
+			return this.clave;
 		}
 		
 		private int cantAdyacentes() {
@@ -82,6 +89,20 @@ public class ListaArreglo {
 		return ady;
 	}
 	
+	public String getDatoConClave(int id) {
+		String dato = "";	
+		for(int i = 0; i < cantidad; i++) {
+				if(this.arr[i].getClaveVert() == id)
+					dato = this.arr[i].getDato();
+			}
+			return dato;
+	}
+	
+	public int getClave(String dato) {
+		int pos = buscarDato(dato);
+		return arr[pos].getClaveVert();
+	}
+	
 	public boolean existe(String dato) {
 		if(!estaVacia()) {
 			for (int i = 0; i < cantidad; i++) {
@@ -136,12 +157,12 @@ public class ListaArreglo {
 		}	
 	}	
 		
-	public void agregar(String dato){
+	public void agregar(String dato, int clave){
 		
 		if(!hayEspacio()){
 			incrementarEspacio();
 		}
-		Vertice v = new Vertice(dato);
+		Vertice v = new Vertice(dato, clave);
 		arr[cantidad] = v;
 		cantidad++;
 	}

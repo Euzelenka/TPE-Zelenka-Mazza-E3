@@ -32,6 +32,23 @@ public class Lista {
 		return cantDatos;
 	}
 	
+	public void eliminar(String dato) {
+		Nodo pos = lista;
+		if(lista != null){
+			if(dato == lista.getDato()) {
+				lista = lista.getNext();
+				cantDatos--;
+			}
+			else { while((pos.getNext() != null)&&(!dato.equals(pos.getNext().getDato())))
+						pos = lista.getNext();
+				   if(dato == pos.getNext().getDato()){
+					   pos.setNext(pos.getNext().getNext());
+					   cantDatos--;
+				   }
+			}
+		}
+	}
+	
 	//Retorna TRUE si existe un determinado elemento
 	public boolean existeElem(String dato) {
 		Nodo cursor = lista;
